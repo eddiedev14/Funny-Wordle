@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root{
+    --background: #131416;
+    --border: #3E3F3F;
+    --keycap: #3F4752;
+    --blue-active: #7CADD5;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: var(--background);
+    color: #fff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input, button{
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.wrapper{
+    width: 100%;
+    min-height: 100dvh;
+    max-width: 768px;
+    padding: 2vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Navbar */
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__group{
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.header__btn{
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.header__title{
+    font-size: 1em;
+}
+
+/* Grid */
+
+.main{
+    max-width: 380px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.main__form{
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.main__line{
+    display: flex;
+    gap: 8px;
+}
+
+.main__input{
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.8em;
+    font-weight: bold;
+    padding-bottom: 2px;
+    transition: .3s ease-in-out border;
+    text-transform: uppercase;
+    caret-color: transparent;
+}
+
+.main__input:focus.error{
+    animation: vibrating .2s ease-in-out infinite;
+    border: 2px solid rgb(159, 22, 22);
+}
+
+.main__input.error{
+    animation: vibrating .2s ease-in-out infinite;
+    border: 2px solid rgb(159, 22, 22);
+}
+
+@keyframes vibrating {
+    0%{
+        transform: rotate(0deg);
+    }
+    
+    25%{
+        transform: rotate(-10deg);
+    }
+
+    50%{
+        transform: rotate(0deg);
+    }
+
+    75%{
+        transform: rotate(10deg);
+    }
+
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+.main__input:focus-visible{
+    outline: none;
+}
+
+.main__input:focus{
+    border: 2px solid var(--blue-active);
+}
+
+/* Keyboard */
+.keyboard{
+    width: min-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    gap: 8px;
+}
+
+.keyboard__line{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+}
+
+.keyboard__key{
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--keycap);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.keyboard__key--send{
+    grid-column: span 2;
+}
+
+/* Responsive */
+@media screen and (min-width: 800px) {
+    .wrapper{
+        padding: 2vh 0;
+    }
+
+    .header__btn{
+        font-size: 1.1em;
+    }
+
+    .header__title{
+        font-size: 1.5em;
+    }
+
+    .keyboard__key{
+        width: 45px;
+        height: 45px;
+    }
+
+    .keyboard__key--send{
+        width: 100%;
+    }
+}
