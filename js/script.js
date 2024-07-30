@@ -12,7 +12,7 @@ const regularExpression = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;
 let linesCompleted = 0;
 
 //Crea un array de palabras con 5 letras que no se repitan caracteres
-const words = ["gatos", "perro", "libro", "casas", "milla", "piano", "tabla", "niños", "mujer", "ratón", "verde", "llave", "silla", "roble", "tigre", "pared", "pluma", "brazo", "huevo", "lente"];
+const words = ["gatos", "perro", "libro", "casas", "milla", "piano", "tabla", "niños", "mujer", "raton", "verde", "llave", "silla", "roble", "tigre", "pared", "pluma", "brazo", "huevo", "lente"];
 
 //Select a random word from the array
 const selectedWord = words[Math.floor(Math.random() * words.length)];
