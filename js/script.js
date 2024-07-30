@@ -192,5 +192,3 @@ function openModal(paragraphText) {
         modalContainer.classList.add("modal--open");
     }, 500);
 }
-
-console.log(selectedWord)
