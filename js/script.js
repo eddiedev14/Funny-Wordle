@@ -2,13 +2,16 @@
 const firstInput = document.querySelector('.main__input--first');
 const inputs = document.querySelectorAll(".main__input");
 const keys = document.querySelectorAll(".keyboard__key");
+const modal = document.querySelector(".modal");
+const modalContainer = document.querySelector(".modal__container");
+const modalParagraph = document.querySelector(".modal__paragraph");
+const modalWord = document.querySelector(".modal__word");
+
 //Creating a regular expression to allow only letters (no numbers, symbols) including ñ
 const regularExpression = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;
+let linesCompleted = 0;
 
 //Crea un array de palabras con 5 letras que no se repitan caracteres
-
-
-
 const words = ["gatos", "perro", "libro", "casas", "milla", "piano", "tabla", "niños", "mujer", "ratón", "verde", "llave", "silla", "roble", "tigre", "pared", "pluma", "brazo", "huevo", "lente"];
 
 //Select a random word from the array
@@ -88,13 +91,15 @@ function sendWord(input){
     const inputs = inputsLine.querySelectorAll("input");
     //Validate if there are empty inputs
     const emptyInputs = Array.from(inputs).filter(input => input.value === "");
+    //Create a string with the word entered
+    const word = Array.from(inputs).map(input => input.value).join("");
 
     //If there are empty inputs, show a error animation
     if (emptyInputs.length > 0) {
         emptyInputs.forEach(addErrorAnimation);
     }else{
         //If there are no empty inputs, validate the word
-        validateWord(inputsLine, inputs);
+        validateWord(inputsLine, inputs, word);
     }
 }
 
@@ -119,16 +124,15 @@ function addErrorAnimation(input) {
 }
 
 //Function to validate the input value with the selected word
-function validateWord(inputLine, inputs) {
-
-        // Crear un objeto para contar las ocurrencias de cada letra en la palabra seleccionada
+function validateWord(inputLine, inputs, word) {
+    //Create an object to count the occurrences of each letter in the selected word
     const letterCount = {};
-    //Va añadiendo a el objeto cada letra con el valor de su cantidad. Si es la primera vez se coloca 0 sino se suma 1
+    //Each letter is added to the object with the value of its quantity. If it is the first time, 0 is added, otherwise 1 is added.
     for (let char of selectedWord) {
         letterCount[char] = (letterCount[char] || 0) + 1;
     }
 
-    // Primera pasada: marcar las letras en la posición correcta
+    // First pass: mark the letters in the correct position
     for (let i = 0; i < selectedWord.length; i++) {
         const input = inputs[i];
         const char = input.value.toLowerCase();
@@ -140,7 +144,7 @@ function validateWord(inputLine, inputs) {
         }
     }
 
-    // Segunda pasada: marcar las letras en la posición incorrecta o no encontradas
+    //Second pass: mark the letters in the wrong position or not found
     for (let i = 0; i < selectedWord.length; i++) {
         const input = inputs[i];
         const char = input.value.toLowerCase();
@@ -159,6 +163,16 @@ function validateWord(inputLine, inputs) {
         input.disabled = true;
     }
 
+    linesCompleted++;
+
+    //Verify if the word is the correct
+    if (word === selectedWord) {
+        openModal("¡Felicitaciones! Has adivinado la palabra:");
+        return;
+    }else if (linesCompleted === 5) {
+        openModal("¡Oopss...! La palabra correcta es:");
+        return;
+    }
 
     //Preparing the form to pass to the next line
     const nextInputsLine = inputLine.nextElementSibling;
@@ -166,6 +180,17 @@ function validateWord(inputLine, inputs) {
         input.removeAttribute("disabled");
     });
     nextInputsLine.firstElementChild.focus();
+}
+
+//Function to open and custom the modal
+function openModal(paragraphText) {
+    setTimeout(() => {
+        modal.show();
+        //Update the paragraph and the word
+        modalParagraph.textContent = paragraphText;
+        modalWord.textContent = selectedWord;
+        modalContainer.classList.add("modal--open");
+    }, 500);
 }
 
 console.log(selectedWord)
